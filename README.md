@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# 🎬 Movies React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Aplicación web para buscar y explorar películas, construida con React. Permite buscar títulos, ver un listado con scroll infinito y consultar el detalle de cada película.
 
-## Available Scripts
+🔗 **Demo:** [melisa8181.github.io/movies-react](https://melisa8181.github.io/movies-react)
 
-In the project directory, you can run:
+## ✨ Funcionalidades
 
-### `npm start`
+- 🔍 Búsqueda de películas con **debounce** (evita hacer una petición por cada tecla)
+- 📃 Listado de resultados con **scroll infinito** (`react-infinite-scroll-component`)
+- 🎞️ Vista de detalle por película (poster, información, etc.)
+- ⏳ Estado de carga con spinner
+- 🚫 Estado vacío cuando no hay resultados
+- 🖼️ Imagen placeholder (`no-image.jpg`) cuando la película no tiene poster
+- 🧭 Navegación entre páginas con React Router
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 🛠️ Tecnologías
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [React 17](https://reactjs.org/)
+- [React Router DOM v5](https://v5.reactrouter.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Infinite Scroll Component](https://www.npmjs.com/package/react-infinite-scroll-component)
+- [The Movie Database (TMDB) API](https://www.themoviedb.org/documentation/api) — fuente de datos de películas
+- Create React App (`react-scripts`)
+- Hooks personalizados (`useDebounce`, `useQuery`)
 
-### `npm test`
+## 📁 Estructura del proyecto
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+src/
+├── components/
+│   ├── Empty.jsx            # Estado vacío (sin resultados)
+│   ├── MovieCard.jsx        # Tarjeta individual de película
+│   ├── MoviesGrid.jsx       # Grilla de resultados
+│   ├── Search.jsx           # Input de búsqueda
+│   ├── Spinner.jsx          # Indicador de carga
+│   └── movies.json          # Datos de ejemplo (mock de listado, formato TMDB)
+├── hooks/
+│   ├── useDebounce.jsx      # Debounce para el input de búsqueda
+│   └── useQuery.jsx         # Hook para manejar query params / peticiones
+├── pages/
+│   ├── LandingPage.jsx      # Página principal (búsqueda + listado)
+│   ├── MovieDetails.jsx     # Página de detalle de una película
+│   └── movie.json           # Datos de ejemplo (mock de detalle, formato TMDB)
+├── utils/
+│   ├── getMovieImg.js       # Construye la URL de la imagen del poster
+│   └── httpClient.js        # Cliente HTTP para consumir la API
+├── App.jsx
+├── index.js
+└── no-image.jpg
+```
 
-### `npm run build`
+## 🚀 Cómo correrlo localmente
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. Cloná el repositorio:
+   ```bash
+   git clone https://github.com/Melisa8181/movies-react.git
+   cd movies-react
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. Instalá las dependencias:
+   ```bash
+   npm install
+   ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Configurá las variables de entorno. Copiá el archivo de ejemplo:
+   ```bash
+   cp .env.template .env
+   ```
+   Y completá tu `.env` con las credenciales de [TMDB](https://www.themoviedb.org/settings/api):
+   ```
+   REACT_APP_API=https://api.themoviedb.org/3
+   REACT_APP_API_TOKEN=tu_read_access_token_de_tmdb
+   ```
+   > ⚠️ Usá el **Read Access Token** (API v4, formato JWT largo), no la API Key clásica — la app lo envía como `Authorization: Bearer ...`.
 
-### `npm run eject`
+4. Iniciá el proyecto en modo desarrollo:
+   ```bash
+   npm start
+   ```
+   Se abrirá en [http://localhost:3000](http://localhost:3000).
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## 📜 Scripts disponibles
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Comando         | Descripción                                      |
+|-----------------|---------------------------------------------------|
+| `npm start`     | Corre la app en modo desarrollo                    |
+| `npm run build` | Genera la versión de producción en `/build`        |
+| `npm test`      | Corre los tests                                    |
+| `npm run eject` | Expone la configuración de Create React App        |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 🌐 Deploy
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+El proyecto está desplegado con **GitHub Pages**, publicado desde:
+```
+https://melisa8181.github.io/movies-react
+```
